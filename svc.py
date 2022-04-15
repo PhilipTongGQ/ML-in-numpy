@@ -1,8 +1,7 @@
 import numpy as np
-import time
-import copy
+import time         #to measure convergence speed
 
-#support vector classifier with various descent methods
+#for calculating runtimeassifier with various descent methods
 class svc:                                                                          #an implementation using numpy                     
     def __init__(self,method="sgd",C=100,init_weights="random",tol=0.001,learning_rate=0.0001,max_iterations=np.inf,batch_size=None,get_cost=False):
         self.method=method
@@ -39,7 +38,7 @@ class svc:                                                                      
 
     def sgd(self,X,y):
         n,d=X.shape
-        train_X,train_y=copy.deepcopy(X),copy.copy(y)                               #so that we don't shuffle original data
+        train_X,train_y=X,y                                                         #so that we don't shuffle original data
         i,k=0,0
         delta=0                                                                     #make sure the loop starts
         cost=self.cost(train_X,train_y)                                             #initialize cost
@@ -94,7 +93,7 @@ class svc:                                                                      
         if self.batch_size is None:
             raise ValueError("for mini-batch descent, batch_size must be specified")
         n,d=X.shape
-        train_X,train_y=copy.deepcopy(X),copy.copy(y)
+        train_X,train_y=X,y
         k,delta=0,0
         l=0
         cost=self.cost(train_X,train_y)
@@ -147,3 +146,4 @@ class svc:                                                                      
         if self.w is None:
             raise ValueError("need to fit the model first")
         return np.sign(np.hstack((np.ones(X.shape[0])[:,np.newaxis],X))@self.w)
+            
