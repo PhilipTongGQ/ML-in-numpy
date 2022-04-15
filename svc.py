@@ -2,6 +2,7 @@ import numpy as np
 import time
 import copy
 
+#support vector classifier with various descent methods
 class svc:                                                                          #an implementation using numpy                     
     def __init__(self,method="sgd",C=100,init_weights="random",tol=0.001,learning_rate=0.0001,max_iterations=np.inf,batch_size=None,get_cost=False):
         self.method=method
