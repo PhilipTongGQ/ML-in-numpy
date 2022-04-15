@@ -117,7 +117,7 @@ class svc:                                                                      
 
     def fit(self,X,y):    
     #X is columns of independent variables. X and y must be numpy arrays
-        self.check_input(X,y)                                           #needs to be np.arrays
+        self.check_input(X,y)                                           #needs to be np.array
         X=np.hstack((np.ones(X.shape[0])[:,np.newaxis],X))              #built in intercept
         if self.init_weights=="random":
             self.w=np.random.randn(X.shape[1])                          
