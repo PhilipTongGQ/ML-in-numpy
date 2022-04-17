@@ -42,9 +42,9 @@ class svc:                                                                      
         i,k=0,0
         delta=0                                                                     #make sure the loop starts
         cost=self.cost(train_X,train_y)                                             #initialize cost
+        ind=np.random.permutation(X.shape[0])
+        train_X,train_y=train_X[ind],train_y[ind]                               #shuffle both X and y
         while True:
-            ind=np.random.permutation(X.shape[0])
-            train_X,train_y=train_X[ind],train_y[ind]                               #shuffle both X and y
             for j in range(d):
                 self.w[j]-=self.learning_rate*self.sgd_update(i,j,train_X,train_y)
             i=i%n+1 if i!=n-1 else 0                                                #if i==n-1, it will cause index error, it should be set to 0
@@ -97,9 +97,9 @@ class svc:                                                                      
         k,delta=0,0
         l=0
         cost=self.cost(train_X,train_y)
+        ind=np.random.permutation(X.shape[0])
+        train_X,train_y=train_X[ind],train_y[ind] 
         while True:
-            ind=np.random.permutation(X.shape[0])
-            train_X,train_y=train_X[ind],train_y[ind] 
             for j in range(d):
                 self.w[j]-=self.learning_rate*self.mini_batch_update(l,j,train_X,train_y)
             k+=1
@@ -117,7 +117,7 @@ class svc:                                                                      
 
     def fit(self,X,y):    
     #X is columns of independent variables. X and y must be numpy arrays
-        self.check_input(X,y)                                           #needs to be np.array
+        self.check_input(X,y)                                           #needs to be np.arrays
         X=np.hstack((np.ones(X.shape[0])[:,np.newaxis],X))              #built in intercept
         if self.init_weights=="random":
             self.w=np.random.randn(X.shape[1])                          
